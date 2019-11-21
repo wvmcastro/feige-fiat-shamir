@@ -36,3 +36,13 @@ ul_int unsafeExtEuclidean(ull_int* a, ull_int* n, long int* y, long int* t)
 		return mdc;
 	}	
 }
+
+ul_int MDC(ul_int a, ul_int b)
+{
+	if(b == 0)
+		return a;
+	
+	ul_int mdc = MDC(b, a % b);
+
+	return mdc;
+}

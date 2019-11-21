@@ -5,5 +5,6 @@
 
 ul_int extEuclidean(ull_int* a, ull_int* n, long int* y, long int* t);
 ul_int unsafeExtEuclidean(ull_int* a, ull_int* n, long int* y, long int* t);
+ul_int MDC(ul_int a, ul_int b);
 
 #endif
