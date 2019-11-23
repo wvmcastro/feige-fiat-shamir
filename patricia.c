@@ -5,7 +5,7 @@
 #include "mytypes.h"
 #include "misc.h"
 
-void patricia(void)
+int patricia(void)
 {
     char initialized = -1;
 	char ret;
@@ -17,7 +17,7 @@ void patricia(void)
     unsigned char b;
     ul_int n, v, x, xb;
 
-    while(scanf(" %c", &id) != EOF && running)
+    while(running && (scanf(" %c", &id) != EOF))
 	{
 		// requests
 		switch (id)
@@ -32,15 +32,19 @@ void patricia(void)
 			case 'Q':
                 scanf("%lu", &x);
                 b = randomBit();
-				ret = 0 | validated_answer;
+				ret = 0 | validated_answer | initialized;
 				break;
 			
 			case 'V':
 				scanf("%lu", &xb);
-				ret = 0 | !(t != 0);
+				ret = validate(b, v, x, xb, n);
+				ret |= (!(t != 0)) | initialized;
 				break;
 			
 			case 'C':
+				scanf("%lu %hhu %lu", &x, &b, &xb);
+				ret = validate(b, v, x, xb, n);
+				ret |= initialized;
 				break;
 			
 			case 'T':
@@ -60,17 +64,20 @@ void patricia(void)
 				printf("C\n");
 				break;printf("C\n");
 
-			case 'Q':validated_answer = -1;
+			case 'Q':
 				validated_answer = -1;
 				printf("C %u \n", b);
 				break;
 			
 			case 'V':
-				validated_answer = 0;
 				t--;
+				printf("C %hhu\n", t);
+				validated_answer = 0;
 				break;
 
             case 'C':
+				t--;
+				printf("C %hhu\n", t);
 				break;
 
 			case 'T':
@@ -78,11 +85,20 @@ void patricia(void)
 				break;
 
 			default:
+				patriciaError(id, t);
 				t = t_;
-				printf("E\n");
 				break;
 		}
+		
+		if(t == 0)
+		{
+			t_ = t = 0;
+			initialized = -1;
+		}
+			
 	}
+
+	return 0;
 }
 
 unsigned char randomBit()
@@ -90,7 +106,7 @@ unsigned char randomBit()
     static unsigned int randomNumber = 0;
     static unsigned char n = 255;
 
-    if(n == 31 || n == 255)
+    if(n == 30 || n == 255)
 	{
         randomNumber = rand();
 		n = 0;
@@ -122,4 +138,12 @@ char validate(unsigned char b, ul_int v, ul_int x, ul_int xb_, ul_int n)
 	}
 
 	return -1;
+}
+
+void patriciaError(char id, unsigned char t)
+{
+	if(id == 'I' || id == 'Q')
+		printf("E\n");
+	else
+		printf("E %hhu\n", t);
 }

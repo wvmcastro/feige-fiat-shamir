@@ -5,6 +5,8 @@
 #include "misc.h"
 #include "fabio.h"
 #include "patricia.h"
+#include "teodoro.h"
+#include "ester.h"
 
 int main(int argc, char* argv[])
 {
@@ -21,13 +23,13 @@ int main(int argc, char* argv[])
 		r = fabio();
 		break;
 	case 'P':
-		patricia();
+		r = patricia();
 		break;
 	case 'T':
-		printf("T\n");
+		r = teodoro();
 		break;
 	case 'E':
-		printf("F\n");
+		r = ester();
 		break;
 	
 	default:

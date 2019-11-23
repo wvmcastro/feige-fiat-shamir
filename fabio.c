@@ -115,7 +115,7 @@ char getX(ul_int n, ul_int* r_, ul_int* x, char b)
 	{	
 		do
 		{
-			r = rand();
+			r = random(n);
 		}
 		while(MDC(r, n) != 1);
 		
