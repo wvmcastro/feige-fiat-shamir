@@ -25,7 +25,7 @@ int patricia(void)
 			case 'I':
 				scanf("%lu %lu %hhu", &n, &v, &t_);
 				t = t_;
-                initialized = 0;
+                initialized = checkNAndV(n, v) | (t < 3) | (t > 50) ;
                 ret = 0;
 				break;
 			

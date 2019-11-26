@@ -1,5 +1,6 @@
 #include "math.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 ul_int extEuclidean(ull_int* a, ull_int* n, long int* y, long int* t)
 {

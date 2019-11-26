@@ -107,9 +107,9 @@ char checkNSV(ul_int n, ul_int s_, ul_int v)
 	return 'E';
 }
 
-char getX(ul_int n, ul_int* r_, ul_int* x, char b)
+char getX(ul_int n, ul_int* r_, ul_int* x_, char b)
 {
-	ull_int r;
+	ull_int x, r;
 	
 	if(b == 0)
 	{	
@@ -133,8 +133,8 @@ char getX(ul_int n, ul_int* r_, ul_int* x, char b)
 		r = *r_;
 	}
 
-	*x = r * r;
-	*x = *x % n;
+	x = r * r;
+	*x_ = x % (ull_int) n;
 	
 	return 0;
 }

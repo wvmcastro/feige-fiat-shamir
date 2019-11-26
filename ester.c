@@ -21,13 +21,14 @@ int ester(void)
         {
             case 'I':
                 scanf("%lu %lu", &n, &v);
-                initialized = (v > n);
+                initialized = checkNAndV(n, v);
                 ret = 0 | initialized;
                 break;
             
             case 'P':
                 scanf("%hhu", &b);
-                ret = 0 | initialized;
+                calculateXAndXb(b, v, n, &x, &xb);
+                ret = 0 | initialized | (b != 0 && b != 1);
                 break;
             
             case 'S':
@@ -38,17 +39,22 @@ int ester(void)
 
             case 'T':
                 running = 0;
-                ret = 0 | initialized;
+                ret = 0;
+                break;
             
             default:
                 throwError();
                 break;
         }
-
+        
         switch (id | ret)
         {
             case 'I':
                 printf("C\n");
+                break;
+            
+            case 'P':
+                printf("C %lu %lu\n", x, xb);
                 break;
             
             case 'S':
@@ -67,6 +73,37 @@ int ester(void)
 
 
     return 0;
+}
+
+void calculateXAndXb(unsigned char b, ul_int v_, ul_int n_, ul_int* x_, ul_int* xb)
+{
+    if(n_ < 6)
+        return;
+
+    if(b == 0)
+    {
+        ull_int n = n_;
+        
+        ull_int r = random(n_);
+        ull_int x = r * r;
+
+        *x_ = x % n; 
+        *xb = r;
+
+    }
+    else if(b == 1)
+    {
+        ull_int n = n_;
+
+        ull_int y = random(n_);
+        ull_int x = y * y;
+        x %= n;
+        x *= (ull_int) v_;
+        x %= n;
+
+        *x_ = y;
+        *xb = x;
+    }
 }
 
 ul_int getS(ul_int x0, ul_int x1, ul_int n_)
